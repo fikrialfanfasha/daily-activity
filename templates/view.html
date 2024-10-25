@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>View Pekerjaan Harian</title>
+    <style>
+        body {
+            padding-top: 70px; /* Beri ruang agar konten tidak tertimpa oleh navbar */
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">Pekerjaan Harian Siswa</a>
+            <div class="dropdown ms-auto">
+                <a id="dropdownToggle" class="text-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ session['username'] }}
+                </a>
+                <ul id="dropdownMenu" class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="bg-white p-5 rounded-3 shadow-sm w-100" style="max-width: 800px;">
+                <h2 class="h5 fw-bold mb-4">Pekerjaan Harian</h2>
+
+                <!-- Tombol Navigasi Kembali -->
+                <div class="mb-4">
+                    <a href="/index" class="btn btn-primary">
+                        Kembali ke Beranda
+                    </a>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-4">Tanggal</th> 
+                            <th>Pekerjaan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for work in daily_work %}
+                            <tr>
+                                <td>{{ work[0] }}</td> 
+                                <td>{{ work[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if not daily_work %}
+                    <p class="text-muted text-center mt-4">Belum ada pekerjaan harian yang diinputkan.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
